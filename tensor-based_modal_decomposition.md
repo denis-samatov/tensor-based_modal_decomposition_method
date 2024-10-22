@@ -26,7 +26,7 @@ $$
 Уравнение можно представить в элементном виде:
 
 $$
-\mathcal{X}_{ijk} = \sum_{p=1}^{P} \sum_{q=1}^{Q} \sum_{r=1}^{R} \mathcal{G}_{pqr} \, A_{ip} \, B_{jq} \, C_{kr} + \mathcal{E}_{ijk}
+\mathcal{X}_{ijk} = \sum_{p=1}^{P} \sum_{q=1}^{Q} \sum_{r=1}^{R} \mathcal{G}_{pqr} A_{ip} B_{jq} C_{kr} + \mathcal{E}_{ijk}
 $$
 
 где $i = 1, \dots, I$, $j = 1, \dots, J$, $k = 1, \dots, K$.
