@@ -8,36 +8,39 @@
 
 В ответ на эту проблему мы предлагаем метод тензорного QR-разложения, основанный на **преобразовании Хаусхолдера с выбором трубок** (tube-pivot Householder transformation) [47]. Основная идея заключается в повторном применении отражателей Хаусхолдера для треугольной факторизации трубок заданного тензора.
 
-### Отражатель Хаусхолдера
+## Отражатель Хаусхолдера
 
 Прежде чем перейти к тензорному QR-разложению, рассмотрим **отражатель Хаусхолдера** для вектора.
 
-- Для заданного вектора **v** ∈ ℝ<sup>M</sup>, отражатель Хаусхолдера **H**(**v**) может отобразить **v** в ||**v**||₂**e**₁, где **e**₁ — первый вектор стандартного базиса в ℝ<sup>M</sup>.
+- Для заданного вектора \( \mathbf{v} \in \mathbb{R}^M \), отражатель Хаусхолдера \( \mathbf{H}(\mathbf{v}) \) может отобразить \( \mathbf{v} \) в \( \| \mathbf{v} \|_2 \mathbf{e}_1 \), где \( \mathbf{e}_1 \) — первый вектор стандартного базиса в \( \mathbb{R}^M \).
 
 **Определение отражателя Хаусхолдера**:
 
-![H(v) = I - \frac{(v + sign(v_1) \sigma e_1)(v + sign(v_1) \sigma e_1)^T}{\sigma (\sigma + |v_1|)}](https://latex.codecogs.com/svg.latex?H%28v%29%20%3D%20I%20-%20%5Cfrac%7B%28v%20%2B%20sign%28v_1%29%20%5Csigma%20e_1%29%28v%20%2B%20sign%28v_1%29%20%5Csigma%20e_1%29%5ET%7D%7B%5Csigma%20%28%5Csigma%20%2B%20%7Cv_1%7C%29%7D)
+\[
+\mathbf{H}(\mathbf{v}) = \mathbf{I} - \frac{(\mathbf{v} + \operatorname{sign}(v_1) \sigma \mathbf{e}_1)(\mathbf{v} + \operatorname{sign}(v_1) \sigma \mathbf{e}_1)^\top}{\sigma (\sigma + |v_1|)} \tag{19}
+\]
+
+- \( \mathbf{I} \) — единичная матрица.
+- \( \sigma = \| \mathbf{v} \|_2 \) — норма вектора \( \mathbf{v} \).
+- \( v_1 \) — первая компонента вектора \( \mathbf{v} \).
+- \( \operatorname{sign}(v_1) \) — знак первой компоненты вектора \( \mathbf{v} \).
+
+Уравнение (19) можно переписать в более компактной форме:
+
+\[
+\mathbf{H}(\mathbf{v}) = \mathbf{I} - 2 \mathbf{u} \mathbf{u}^\top \tag{20}
+\]
 
 где:
-- **I** — единичная матрица
-- σ = ||**v**||₂ — норма вектора **v**
-- v₁ — первая компонента вектора **v**
-- sign(v₁) — знак первой компоненты вектора **v**
 
-Уравнение можно переписать в более компактной форме:
-
-![H(v) = I - 2uu^T](https://latex.codecogs.com/svg.latex?H%28v%29%20%3D%20I%20-%202uu%5ET)
-
-где:
-
-![u = \frac{v + sign(v_1) \sigma e_1}{\sqrt{2 \sigma (\sigma + |v_1|)}} \in \mathbb{R}^M](https://latex.codecogs.com/svg.latex?u%20%3D%20%5Cfrac%7Bv%20%2B%20sign%28v_1%29%20%5Csigma%20e_1%7D%7B%5Csqrt%7B2%20%5Csigma%20%28%5Csigma%20%2B%20%7Cv_1%7C%29%7D%7D%20%5Cin%20%5Cmathbb%7BR%7D%5EM)
+\[
+\mathbf{u} = \frac{\mathbf{v} + \operatorname{sign}(v_1) \sigma \mathbf{e}_1}{\sqrt{2 \sigma (\sigma + |v_1|)}} \in \mathbb{R}^M
+\]
 
 **Свойства отражателя Хаусхолдера**:
 
-- **H**(**v**)**H**(**v**)<sup>T</sup> = **I**, что означает, что **H**(**v**) является ортогональной матрицей
-- **H**(**v**) = **H**(**v**)<sup>T</sup> = **H**(**v**)<sup>-1</sup>
-
-[продолжение документа...]
+- \( \mathbf{H}(\mathbf{v}) \mathbf{H}(\mathbf{v})^\top = \mathbf{I} \), что означает, что \( \mathbf{H}(\mathbf{v}) \) является ортогональной матрицей.
+- \( \mathbf{H}(\mathbf{v}) = \mathbf{H}(\mathbf{v})^\top = \mathbf{H}(\mathbf{v})^{-1} \).
 
 ## Тензорное QR-разложение
 
