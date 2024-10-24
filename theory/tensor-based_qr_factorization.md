@@ -344,7 +344,7 @@ $$
 Рассмотрим вектор $\mathbf{v} = \begin{pmatrix} 4 \\ 3 \\ 0 \end{pmatrix}$.
 
 1. Вычисляем $\alpha = \operatorname{sign}(4) \sqrt{4^2 + 3^2 + 0^2} = 5$.
-2. Находим $\mathbf{u} = \frac{\mathbf{v} + 5 \mathbf{e}_1}}{\| \mathbf{v} + 5 \mathbf{e}_1 \|_2}$.
+2. Находим $\mathbf{u} = \frac{\mathbf{v} + 5 \mathbf{e}_1}{\| \mathbf{v} + 5 \mathbf{e}_1 \|_2}$.
 3. Строим отражатель $\mathbf{H}$ и применяем его к $\mathbf{v}$, получая $\mathbf{H} \mathbf{v} = \begin{pmatrix} -5 \\ 0 \\ 0 \end{pmatrix}$.
 
 #### В контексте тензорного QR-разложения

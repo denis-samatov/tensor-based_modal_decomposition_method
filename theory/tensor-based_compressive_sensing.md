@@ -85,7 +85,7 @@ $$
 Используем метод множителей Лагранжа для снятия ограничения:
 
 $$
-L(\mathbf{x}, \mathbf{d}, \boldsymbol{\mu}) = \frac{1}{2} \| \mathbf{P} \times_3 \mathcal{A} \times_{(3)} \mathbf{x} - \mathbf{Y} \|_F^2 + \lambda \| \mathbf{d} \|_1 + \boldsymbol{\mu}^\top (\mathbf{x} - \mathbf{d}) + \frac{\delta}{2} \| \mathbf{x} - \mathbf{d} \|_2^2 \tag{30}
+L(\mathbf{x}, \mathbf{d}, \boldsymbol{\mu}) = \frac{1}{2} \| \mathbf{P} \times_3 \mathcal{A} \times_{(3)} \mathbf{x} - \mathbf{Y} \|_F^2 + \lambda \| \mathbf{d} \|_1 + \boldsymbol{\mu}^\top (\mathbf{x} - \mathbf{d}) + \frac{\delta}{2} \| \mathbf{x} - \mathbf{d} \|_2^2
 $$
 
 - $\boldsymbol{\mu}$ — вектор множителей Лагранжа.
@@ -94,7 +94,7 @@ $$
 Перепишем выражение для удобства:
 
 $$
-L(\mathbf{x}, \mathbf{d}, \mathbf{p}) = \frac{1}{2} \| \mathbf{P} \times_3 \mathcal{A} \times_{(3)} \mathbf{x} - \mathbf{Y} \|_F^2 + \lambda \| \mathbf{d} \|_1 + \frac{\delta}{2} \| \mathbf{x} - \mathbf{d} + \mathbf{p} \|_2^2 - \frac{\delta}{2} \| \mathbf{p} \|_2^2 \tag{31}
+L(\mathbf{x}, \mathbf{d}, \mathbf{p}) = \frac{1}{2} \| \mathbf{P} \times_3 \mathcal{A} \times_{(3)} \mathbf{x} - \mathbf{Y} \|_F^2 + \lambda \| \mathbf{d} \|_1 + \frac{\delta}{2} \| \mathbf{x} - \mathbf{d} + \mathbf{p} \|_2^2 - \frac{\delta}{2} \| \mathbf{p} \|_2^2
 $$
 
 - $\mathbf{p} = \frac{\boldsymbol{\mu}}{\delta}$.
@@ -106,19 +106,19 @@ $$
 1. **Обновление $\mathbf{x}$**:
 
    $$
-   \mathbf{x}^{(n+1)} = \arg \min_{\mathbf{x}} \frac{1}{2} \| \mathbf{P} \times_3 \mathcal{A} \times_{(3)} \mathbf{x} - \mathbf{Y} \|_F^2 + \frac{\delta^{(n)}}{2} \| \mathbf{x} - \mathbf{d}^{(n)} + \mathbf{p}^{(n)} \|_2^2 \tag{32}
+   \mathbf{x}^{(n+1)} = \arg \min_{\mathbf{x}} \frac{1}{2} \| \mathbf{P} \times_3 \mathcal{A} \times_{(3)} \mathbf{x} - \mathbf{Y} \|_F^2 + \frac{\delta^{(n)}}{2} \| \mathbf{x} - \mathbf{d}^{(n)} + \mathbf{p}^{(n)} \|_2^2
    $$
 
 2. **Обновление $\mathbf{d}$**:
 
    $$
-   \mathbf{d}^{(n+1)} = \arg \min_{\mathbf{d}} \lambda \| \mathbf{d} \|_1 + \frac{\delta^{(n)}}{2} \| \mathbf{x}^{(n+1)} - \mathbf{d} + \mathbf{p}^{(n)} \|_2^2 \tag{33}
+   \mathbf{d}^{(n+1)} = \arg \min_{\mathbf{d}} \lambda \| \mathbf{d} \|_1 + \frac{\delta^{(n)}}{2} \| \mathbf{x}^{(n+1)} - \mathbf{d} + \mathbf{p}^{(n)} \|_2^2
    $$
 
 3. **Обновление $\mathbf{p}$**:
 
    $$
-   \mathbf{p}^{(n+1)} = \mathbf{p}^{(n)} + \mathbf{x}^{(n+1)} - \mathbf{d}^{(n+1)} \tag{34}
+   \mathbf{p}^{(n+1)} = \mathbf{p}^{(n)} + \mathbf{x}^{(n+1)} - \mathbf{d}^{(n+1)}
    $$
 
 #### Обновление Параметров
@@ -126,11 +126,11 @@ $$
 Параметры $\boldsymbol{\mu}$ и $\delta$ обновляются следующим образом:
 
 $$
-\boldsymbol{\mu}^{(n+1)} = \boldsymbol{\mu}^{(n)} + \delta^{(n)} (\mathbf{x}^{(n+1)} - \mathbf{d}^{(n+1)}) \tag{35}
+\boldsymbol{\mu}^{(n+1)} = \boldsymbol{\mu}^{(n)} + \delta^{(n)} (\mathbf{x}^{(n+1)} - \mathbf{d}^{(n+1)})
 $$
 
 $$
-\delta^{(n+1)} = \min(\delta^{(n)}, \delta_{\text{max}}) \tag{36}
+\delta^{(n+1)} = \min(\delta^{(n)}, \delta_{\text{max}})
 $$
 
 - $\delta_{\text{max}}$ — максимальное значение параметра $\delta$.
