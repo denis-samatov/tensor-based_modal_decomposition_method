@@ -17,7 +17,7 @@
 **Определение отражателя Хаусхолдера**:
 
 $$
-\mathbf{H}(\mathbf{v}) = \mathbf{I} - \frac{(\mathbf{v} + \operatorname{sign}(v_1) \sigma \mathbf{e}_1)(\mathbf{v} + \operatorname{sign}(v_1) \sigma \mathbf{e}_1)^\top}{\sigma (\sigma + |v_1|)} \tag{19}
+\mathbf{H}(\mathbf{v}) = \mathbf{I} - \frac{(\mathbf{v} + \operatorname{sign}(v_1) \sigma \mathbf{e}_1)(\mathbf{v} + \operatorname{sign}(v_1) \sigma \mathbf{e}_1)^\top}{\sigma (\sigma + |v_1|)}
 $$
 
 - $\mathbf{I}$ — единичная матрица.
@@ -25,10 +25,10 @@ $$
 - $v_1$ — первая компонента вектора $\mathbf{v}$.
 - $\operatorname{sign}(v_1)$ — знак первой компоненты вектора $\mathbf{v}$.
 
-Уравнение (19) можно переписать в более компактной форме:
+Уравнение можно переписать в более компактной форме:
 
 $$
-\mathbf{H}(\mathbf{v}) = \mathbf{I} - 2 \mathbf{u} \mathbf{u}^\top \tag{20}
+\mathbf{H}(\mathbf{v}) = \mathbf{I} - 2 \mathbf{u} \mathbf{u}^\top
 $$
 
 где:
@@ -49,7 +49,7 @@ $$
 **Тензорное QR-разложение с выбором трубок** на $d$-й итерации задается следующим образом:
 
 $$
-\mathcal{X} \approx \mathcal{X} \times_3 \mathbf{P}_d = \mathbf{Q}_d \times_3 \mathcal{R}_d \tag{21}
+\mathcal{X} \approx \mathcal{X} \times_3 \mathbf{P}_d = \mathbf{Q}_d \times_3 \mathcal{R}_d
 $$
 
 - $\mathcal{X}$ — исходный тензор.
@@ -77,7 +77,7 @@ $$
 \mathcal{X}_{11:} & \dots & \mathcal{X}_{1j:} \\
 \vdots & \ddots & \vdots \\
 \mathcal{X}_{i1:} & \dots & \mathcal{X}_{ij:}
-\end{bmatrix} \tag{22}
+\end{bmatrix}
 $$
 
 - Каждая трубка $\mathcal{X}_{ij:}$ — это вектор, полученный фиксированием индексов $i$ и $j$ и варьированием третьего измерения.
@@ -97,7 +97,7 @@ $$
 \| \mathcal{R}_{11:} \|_1 & \dots & \| \mathcal{R}_{1j:} \|_1 \\
 \vdots & \ddots & \vdots \\
 \| \mathcal{R}_{i1:} \|_1 & \dots & \| \mathcal{R}_{ij:} \|_1
-\end{bmatrix} \tag{23}
+\end{bmatrix}
 $$
 
 - Здесь $\| \mathcal{R}_{ij:} \|_1$ — сумма абсолютных значений элементов трубки $\mathcal{R}_{ij:}$.
@@ -117,7 +117,7 @@ $$
 \mathbf{Q}_d = \mathbf{Q}_{d-1} \begin{pmatrix}
 \mathbf{I} & \mathbf{0} \\
 \mathbf{0} & \mathbf{H}(\mathbf{t}_{d-1})
-\end{pmatrix} \tag{24}
+\end{pmatrix}
 $$
 
 - Здесь $\mathbf{H}(\mathbf{t}_{d-1})$ — отражатель Хаусхолдера, применяемый к трубке $\mathbf{t}_{d-1}$.
