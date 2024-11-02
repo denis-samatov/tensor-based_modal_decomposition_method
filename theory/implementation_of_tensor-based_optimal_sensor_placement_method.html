@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&Rcy;&iecy;&acy;&lcy;&icy;&zcy;&acy;&tscy;&icy;&yacy; &Tcy;&iecy;&ncy;&zcy;&ocy;&rcy;&ncy;&ocy;&gcy;&ocy; &Mcy;&iecy;&tcy;&ocy;&dcy;&acy; &Ocy;&pcy;&tcy;&icy;&mcy;&acy;&lcy;&softcy;&ncy;&ocy;&gcy;&ocy; &Rcy;&acy;&zcy;&mcy;&iecy;&shchcy;&iecy;&ncy;&icy;&yacy; &Dcy;&acy;&tcy;&chcy;&icy;&kcy;&ocy;&vcy;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="реализация-тензорного-метода-оптимального-размещения-датчиков">Реализация Тензорного Метода Оптимального Размещения Датчиков</h1>
+<h2 id="введение">Введение</h2>
+<p>В данной главе мы подробно рассмотрим процесс реализации тензорного метода оптимального размещения датчиков (Optimal Sensor Placement, OSP). Этот метод позволяет эффективно выбирать оптимальные позиции для размещения датчиков в высокоразмерных системах, используя тензорные представления данных и методы тензорного анализа.</p>
+<p>Мы также сравним данный подход с методом, основанным на <strong>Методе Собственных Функций</strong> (Proper Orthogonal Decomposition, POD), предложенным Карником и соавторами [40]. Оба метода имеют схожие этапы, но различаются в использовании тензорных и матричных представлений данных.</p>
+<h2 id="реализация-тензорного-метода-osp">Реализация Тензорного Метода OSP</h2>
+<p>Процесс реализации тензорного метода оптимального размещения датчиков состоит из следующих шагов:</p>
+<h3 id="шаг-1-преобразование-снимков-поля-в-тензорную-форму"><strong>Шаг 1: Преобразование Снимков Поля в Тензорную Форму</strong></h3>
+<ul>
+<li>
+<p><strong>Описание</strong>:</p>
+<ul>
+<li>Собираются <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span> наборов снимков поля (snapshots of the field) при различных параметрах системы.</li>
+<li>Эти наборы данных представляют собой измерения поля при разных условиях или в разные моменты времени.</li>
+<li>Каждый набор данных преобразуется в тензорную форму  <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">X</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi mathvariant="script">X</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi mathvariant="script">X</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">\mathcal{X}_1, \mathcal{X}_2, \dots, \mathcal{X}_D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.14643em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1464em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.14643em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1464em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.14643em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1464em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, где каждый тензор соответствует определенному набору параметров системы.</li>
+</ul>
+</li>
+<li>
+<p><strong>Пояснение</strong>:</p>
+<ul>
+<li><strong>Снимок поля</strong> — это измерение поля (например, температуры, скорости, давления) в определенный момент времени или при определенных условиях.</li>
+<li><strong>Преобразование в тензорную форму</strong> означает представление данных в виде многомерного массива, учитывающего пространственные и временные измерения.</li>
+</ul>
+</li>
+</ul>
+<h3 id="шаг-2-применение-тензорного-модального-разложения-tbmd"><strong>Шаг 2: Применение Тензорного Модального Разложения (TBMD)</strong></h3>
+<ul>
+<li>
+<p><strong>Описание</strong>:</p>
+<ul>
+<li>К каждому тензору <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">X</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi mathvariant="script">X</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi mathvariant="script">X</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">\mathcal{X}_1, \mathcal{X}_2, \dots, \mathcal{X}_D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.14643em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1464em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.14643em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1464em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.14643em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1464em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> применяется <strong>Тензорное Модальное Разложение</strong> (Tensor-Based Modal Decomposition, TBMD).</li>
+<li>В результате получаются модальные тензоры <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">M</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi mathvariant="script">M</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi mathvariant="script">M</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">\mathcal{M}_1, \mathcal{M}_2, \dots, \mathcal{M}_D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathcal">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathcal">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathcal">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Пояснение</strong>:</p>
+<ul>
+<li><strong>TBMD</strong> — это метод разложения тензора на моды, аналогичный методу Такера, позволяющий выделить основные компоненты в данных.</li>
+<li>Модальные тензоры <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">M</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\mathcal{M}_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> содержат моды, описывающие динамику системы при различных параметрах.</li>
+</ul>
+</li>
+</ul>
+<h3 id="шаг-3-формирование-составного-модального-тензора"><strong>Шаг 3: Формирование Составного Модального Тензора</strong></h3>
+<ul>
+<li>
+<p><strong>Описание</strong>:</p>
+<ul>
+<li>Модальные тензоры <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">M</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi mathvariant="script">M</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi mathvariant="script">M</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">\mathcal{M}_1, \mathcal{M}_2, \dots, \mathcal{M}_D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathcal">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathcal">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathcal">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> объединяются путем их стекирования (stacking) вдоль третьего измерения, кроме пространственного измерения.</li>
+<li>В результате получается составной модальный тензор <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">A</mi></mrow><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal">A</span></span></span></span>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Пояснение</strong>:</p>
+<ul>
+<li><strong>Стекирование</strong> — процесс объединения тензоров в один тензор путем добавления новых слоев (вдоль определенного измерения).</li>
+<li>Итоговый тензор <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">A</mi></mrow><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal">A</span></span></span></span> содержит все моды, необходимые для описания динамики системы при различных параметрах.</li>
+</ul>
+</li>
+</ul>
+<h3 id="шаг-4-применение-тензорного-qr-разложения"><strong>Шаг 4: Применение Тензорного QR-разложения</strong></h3>
+<ul>
+<li>
+<p><strong>Описание</strong>:</p>
+<ul>
+<li>К тензору <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">A</mi></mrow><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal">A</span></span></span></span> применяется <strong>Тензорное QR-разложение</strong> с учетом ограничения, что количество датчиков равно <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>.</li>
+<li>В результате получается матрица перестановок <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">P</mi></mrow><annotation encoding="application/x-tex">\mathbf{P}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6861em;"></span><span class="mord mathbf">P</span></span></span></span>, определяющая оптимальное расположение датчиков.</li>
+</ul>
+</li>
+<li>
+<p><strong>Пояснение</strong>:</p>
+<ul>
+<li><strong>Тензорное QR-разложение</strong> позволяет разложить тензор <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">A</mi></mrow><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal">A</span></span></span></span> на ортогональную матрицу и треугольный тензор, аналогично матричному QR-разложению, но в многомерном пространстве.</li>
+<li><strong>Матрица перестановок <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">P</mi></mrow><annotation encoding="application/x-tex">\mathbf{P}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6861em;"></span><span class="mord mathbf">P</span></span></span></span></strong> — бинарная матрица, где единицы указывают на позиции, выбранные для размещения датчиков.</li>
+</ul>
+</li>
+</ul>
+<h3 id="шаг-5-настройка-гиперпараметров-и-применение-тензорного-компрессивного-измерения"><strong>Шаг 5: Настройка Гиперпараметров и Применение Тензорного Компрессивного Измерения</strong></h3>
+<ul>
+<li>
+<p><strong>Описание</strong>:</p>
+<ul>
+<li>Устанавливаются гиперпараметры для тензорного компрессивного измерения (Compressive Sensing).</li>
+<li>На вход подаются модальный тензор <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">A</mi></mrow><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal">A</span></span></span></span> и матрица измерений <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">Y</mi></mrow><annotation encoding="application/x-tex">\mathbf{Y}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6861em;"></span><span class="mord mathbf" style="margin-right:0.02875em;">Y</span></span></span></span>, полученная под оптимальным расположением датчиков <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">P</mi></mrow><annotation encoding="application/x-tex">\mathbf{P}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6861em;"></span><span class="mord mathbf">P</span></span></span></span>.</li>
+<li>Получается оптимизированный вектор весов <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi mathvariant="bold">x</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\mathbf{x}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">x</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Пояснение</strong>:</p>
+<ul>
+<li><strong>Гиперпараметры</strong> могут включать в себя параметры регуляризации, количество итераций, параметры сходимости и т.д.</li>
+<li><strong>Тензорное компрессивное измерение</strong> использует разреженность вектора весов для восстановления полного поля из разреженных измерений.</li>
+</ul>
+</li>
+</ul>
+<h3 id="шаг-6-восстановление-матрицы-поля"><strong>Шаг 6: Восстановление Матрицы Поля</strong></h3>
+<ul>
+<li>
+<p><strong>Описание</strong>:</p>
+<ul>
+<li>
+<p>Используя оптимизированный вектор весов <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi mathvariant="bold">x</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\mathbf{x}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">x</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span> и модальный тензор <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">A</mi></mrow><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal">A</span></span></span></span>, восстанавливается матрица поля <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi mathvariant="bold">X</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\mathbf{X}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9495em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9495em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">X</span></span><span style="top:-3.2551em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span> согласно уравнению (14):</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi mathvariant="bold">X</mi><mo>^</mo></mover><mo>=</mo><mi mathvariant="script">A</mi><msub><mo>×</mo><mrow><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></msub><mover accent="true"><mi mathvariant="bold">x</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\mathbf{X}} = \mathcal{A} \times_{(3)} \hat{\mathbf{x}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9495em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9495em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">X</span></span><span style="top:-3.2551em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0385em;vertical-align:-0.3552em;"></span><span class="mord mathcal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin"><span class="mbin">×</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">3</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">x</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Пояснение</strong>:</p>
+<ul>
+<li><strong>Восстановление поля</strong> заключается в комбинировании мод с соответствующими весами, чтобы получить полное поле системы.</li>
+<li>Уравнение (14) определяет, как производится это восстановление через произведение тензора на вектор по третьему измерению.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="общий-описание-процесса"><strong>Общий Описание Процесса</strong></h3>
+<p>Применяя TBMD на втором шаге, весь процесс можно назвать <strong>методом OSP, основанным на TBMD</strong>. Этот метод позволяет учитывать многомерную природу данных и использовать тензорные методы для эффективного анализа и оптимизации.</p>
+<h2 id="сравнение-с-методом-основанным-на-pod">Сравнение с Методом, Основанным на POD</h2>
+<p><strong>Метод OSP, основанный на POD</strong>, предложенный Карником и соавторами [40], имеет схожий процесс, но использует матричное представление данных и метод собственных функций (POD) для разложения.</p>
+<h3 id="шаги-метода-osp-на-основе-pod"><strong>Шаги Метода OSP на Основе POD</strong></h3>
+<ol>
+<li>
+<p><strong>Преобразование Снимков Поля в Матричную Форму</strong>:</p>
+<ul>
+<li>Собранные <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span> наборов снимков поля преобразуются в матричную форму <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>X</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>X</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">X_1, X_2, \dots, X_D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Применение POD к Каждой Матрице</strong>:</p>
+<ul>
+<li>К каждой матрице <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">X_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> применяется метод POD, получая модальные матрицы <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>M</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>M</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">M_1, M_2, \dots, M_D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Формирование Составной Модальной Матрицы</strong>:</p>
+<ul>
+<li>Модальные матрицы <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">M_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> объединяются путем последовательного добавления (аппендинга) в одну модальную матрицу <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Применение Матричного QR-разложения</strong>:</p>
+<ul>
+<li>К матрице <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span> применяется стандартное матричное QR-разложение с учетом ограничения на количество датчиков <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>.</li>
+<li>Получается вектор перестановок <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">p</mi></mrow><annotation encoding="application/x-tex">\mathbf{p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.1944em;"></span><span class="mord mathbf">p</span></span></span></span>, определяющий оптимальные позиции датчиков.</li>
+</ul>
+</li>
+<li>
+<p><strong>Настройка Гиперпараметров и Применение Компрессивного Измерения</strong>:</p>
+<ul>
+<li>Устанавливаются гиперпараметры классического матричного компрессивного измерения.</li>
+<li>На вход подаются модальная матрица <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span> и вектор измерений <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">y</mi></mrow><annotation encoding="application/x-tex">\mathbf{y}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.1944em;"></span><span class="mord mathbf" style="margin-right:0.01597em;">y</span></span></span></span> под оптимальным расположением датчиков <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">p</mi></mrow><annotation encoding="application/x-tex">\mathbf{p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.1944em;"></span><span class="mord mathbf">p</span></span></span></span>.</li>
+<li>Получается оптимизированный вектор весов <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi mathvariant="bold">x</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\mathbf{x}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">x</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Восстановление Вектора Поля</strong>:</p>
+<ul>
+<li>
+<p>Используя <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi mathvariant="bold">x</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\mathbf{x}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">x</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span> и матрицу <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span>, восстанавливается вектор поля <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi mathvariant="bold">z</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\mathbf{z}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">z</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span> согласно уравнению:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi mathvariant="bold">z</mi><mo>^</mo></mover><mo>=</mo><mi>A</mi><mover accent="true"><mi mathvariant="bold">x</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\mathbf{z}} = A \hat{\mathbf{x}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">z</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord mathnormal">A</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">x</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="сравнение-методов"><strong>Сравнение Методов</strong></h3>
+<ul>
+<li>
+<p><strong>Представление данных</strong>:</p>
+<ul>
+<li><strong>TBMD-based OSP</strong> использует тензорное представление данных, учитывая многомерную природу систем.</li>
+<li><strong>POD-based OSP</strong> использует матричное представление, что может быть ограничено при обработке сложных многомерных данных.</li>
+</ul>
+</li>
+<li>
+<p><strong>Разложение</strong>:</p>
+<ul>
+<li><strong>TBMD</strong> позволяет выделить моды из тензорных данных, учитывая зависимости между измерениями.</li>
+<li><strong>POD</strong> выполняет разложение на собственные функции, но может не учитывать все многомерные зависимости.</li>
+</ul>
+</li>
+<li>
+<p><strong>QR-разложение</strong>:</p>
+<ul>
+<li><strong>Тензорное QR-разложение</strong> в TBMD-based OSP обрабатывает тензоры напрямую.</li>
+<li><strong>Матричное QR-разложение</strong> в POD-based OSP работает с матрицами, что может быть менее эффективным для высокоразмерных данных.</li>
+</ul>
+</li>
+<li>
+<p><strong>Восстановление поля</strong>:</p>
+<ul>
+<li>В TBMD-based OSP восстановление происходит через произведение тензора на вектор.</li>
+<li>В POD-based OSP восстановление осуществляется через матричное умножение.</li>
+</ul>
+</li>
+</ul>
+<h3 id="выбор-гиперпараметров"><strong>Выбор Гиперпараметров</strong></h3>
+<p>Важно отметить, что гиперпараметры для обоих методов были выбраны одинаковыми. Это сделано для обеспечения справедливого сравнения методов в последующих оценках.</p>
+<ul>
+<li><strong>Гиперпараметры могут включать</strong>:
+<ul>
+<li>Параметры регуляризации.</li>
+<li>Количество мод, используемых в разложении.</li>
+<li>Критерии сходимости алгоритмов.</li>
+<li>Ограничения на количество итераций.</li>
+</ul>
+</li>
+</ul>
+<h2 id="заключение">Заключение</h2>
+<p>Реализация тензорного метода оптимального размещения датчиков включает в себя несколько ключевых шагов, начиная с преобразования данных в тензорную форму и заканчивая восстановлением полного поля системы. Использование тензорных методов позволяет более эффективно обрабатывать многомерные данные и учитывать сложные зависимости между измерениями.</p>
+<p>Сравнение с методом, основанным на POD, показывает преимущества тензорного подхода в контексте высокоразмерных систем. Однако выбор метода зависит от конкретной задачи, доступных данных и требований к точности и вычислительной эффективности.</p>
+<p><strong>Основные выводы</strong>:</p>
+<ul>
+<li><strong>Тензорный подход</strong> (TBMD-based OSP) предоставляет более гибкий и мощный инструмент для анализа и оптимизации в многомерных системах.</li>
+<li><strong>Матричный подход</strong> (POD-based OSP) может быть применим в случаях, когда данные могут быть адекватно представлены в матричной форме.</li>
+<li><strong>Выбор гиперпараметров</strong> играет важную роль в производительности обоих методов и должен быть тщательно настроен.</li>
+</ul>
+<h2 id="дополнительные-пояснения">Дополнительные Пояснения</h2>
+<h3 id="новые-термины-и-понятия">Новые Термины и Понятия</h3>
+<ul>
+<li>
+<p><strong>Снимок поля (Snapshot of the field)</strong>: Моментальное измерение поля (например, скорости, давления) системы при определенных условиях.</p>
+</li>
+<li>
+<p><strong>Тензорное Модальное Разложение (TBMD)</strong>: Метод разложения тензора на моды, позволяющий выделить основные компоненты и упрощать представление данных.</p>
+</li>
+<li>
+<p><strong>Метод Собственных Функций (POD)</strong>: Метод, используемый для разложения матрицы данных на собственные функции, выделяя наиболее значимые компоненты.</p>
+</li>
+<li>
+<p><strong>Стекирование (Stacking)</strong>: Процесс объединения нескольких тензоров или матриц в один путем добавления их вдоль определенного измерения.</p>
+</li>
+<li>
+<p><strong>Матрица Перестановок (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">P</mi></mrow><annotation encoding="application/x-tex">\mathbf{P}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6861em;"></span><span class="mord mathbf">P</span></span></span></span>)</strong>: Бинарная матрица, используемая для выбора оптимальных позиций датчиков.</p>
+</li>
+<li>
+<p><strong>Вектор Перестановок (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">p</mi></mrow><annotation encoding="application/x-tex">\mathbf{p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.1944em;"></span><span class="mord mathbf">p</span></span></span></span>)</strong>: Вектор, содержащий индексы позиций, выбранных для размещения датчиков.</p>
+</li>
+<li>
+<p><strong>Компрессивное Измерение (Compressive Sensing)</strong>: Метод восстановления сигнала или поля из ограниченного числа измерений, используя разреженность сигнала.</p>
+</li>
+</ul>
+<h3 id="уравнения-и-операции">Уравнения и Операции</h3>
+<ul>
+<li>
+<p><strong>Уравнение восстановления поля</strong>:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi mathvariant="bold">X</mi><mo>^</mo></mover><mo>=</mo><mi mathvariant="script">A</mi><msub><mo>×</mo><mrow><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></msub><mover accent="true"><mi mathvariant="bold">x</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\mathbf{X}} = \mathcal{A} \times_{(3)} \hat{\mathbf{x}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9495em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9495em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">X</span></span><span style="top:-3.2551em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0385em;vertical-align:-0.3552em;"></span><span class="mord mathcal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin"><span class="mbin">×</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">3</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">x</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span></span></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">A</mi></mrow><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal">A</span></span></span></span> — модальный тензор.</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi mathvariant="bold">x</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\mathbf{x}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">x</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span> — оптимизированный вектор весов.</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>×</mo><mrow><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">\times_{(3)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9385em;vertical-align:-0.3552em;"></span><span class="mord"><span class="mbin">×</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">3</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span></span></span></span> — произведение тензора на вектор по третьему измерению.</li>
+</ul>
+</li>
+<li>
+<p><strong>Восстановление вектора поля в POD-based OSP</strong>:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi mathvariant="bold">z</mi><mo>^</mo></mover><mo>=</mo><mi>A</mi><mover accent="true"><mi mathvariant="bold">x</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\mathbf{z}} = A \hat{\mathbf{x}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">z</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord mathnormal">A</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">x</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span></span></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span> — составная модальная матрица.</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi mathvariant="bold">x</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\mathbf{x}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7079em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7079em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathbf">x</span></span><span style="top:-3.0134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span> — оптимизированный вектор весов.</li>
+</ul>
+</li>
+</ul>
+<h3 id="практические-замечания">Практические Замечания</h3>
+<ul>
+<li>
+<p><strong>Выбор количества датчиков <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></strong>: Количество датчиков выбирается в зависимости от требований к точности восстановления и доступных ресурсов.</p>
+</li>
+<li>
+<p><strong>Оптимизация расположения датчиков</strong>: Применение QR-разложения (тензорного или матричного) позволяет определить наиболее информативные позиции для размещения датчиков.</p>
+</li>
+<li>
+<p><strong>Сходимость алгоритмов</strong>: Необходимо следить за сходимостью используемых алгоритмов и при необходимости корректировать гиперпараметры.</p>
+</li>
+<li>
+<p><strong>Справедливое сравнение методов</strong>: Использование одинаковых гиперпараметров для обоих методов позволяет объективно оценить их производительность и эффективность.</p>
+</li>
+</ul>
+<h2 id="рекомендации-для-представления-на-семинаре">Рекомендации для Представления на Семинаре</h2>
+<ul>
+<li>
+<p><strong>Структурируйте презентацию</strong>: Разделите материал на логические части, соответствующие шагам алгоритма.</p>
+</li>
+<li>
+<p><strong>Используйте визуализации</strong>: При возможности, используйте графики, схемы и диаграммы для иллюстрации процессов преобразования данных, разложения и восстановления поля.</p>
+</li>
+<li>
+<p><strong>Приведите примеры</strong>: Простые числовые примеры или демонстрации помогут аудитории лучше понять применяемые методы.</p>
+</li>
+<li>
+<p><strong>Сравните методы</strong>: Четко подчеркните различия и сходства между TBMD-based OSP и POD-based OSP, выделив преимущества и недостатки каждого.</p>
+</li>
+<li>
+<p><strong>Ответьте на вопросы</strong>: Будьте готовы объяснить сложные концепции и ответить на вопросы аудитории, используя простые и понятные термины.</p>
+</li>
+</ul>
+<hr>
+<p><strong>Ссылки</strong>:</p>
+<p>[40] Karnik, T., et al. &quot;Optimal Sensor Placement for Modal Identification of Structures Using Proper Orthogonal Decomposition&quot;, 2008.</p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
