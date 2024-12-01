@@ -22,10 +22,14 @@ class TensorTubeQRDecomposition:
             raise ValueError("tensor must be a 3D numpy array.")
         if not isinstance(N, int) or N <= 0:
             raise ValueError("N must be a positive integer.")
-
+        
+        self.n1, self.n2, self.m = tensor.shape
+        
+        if N > self.m:
+            raise ValueError("N (number of sensors to select) must be less than the size of the third dimension (m).")
+        
         self.tensor = tensor
         self.N = N
-        self.n1, self.n2, self.m = tensor.shape
         self.P = None
         self.Q = None
         self.R = None
